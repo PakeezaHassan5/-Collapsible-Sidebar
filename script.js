@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleIcon.classList.remove("fa-times");
     toggleIcon.classList.add("fa-bars");
   }
-
   toggleBtn.addEventListener("click", () => {
     if (sidebar.classList.contains("open")) {
       closeSidebar();
@@ -116,3 +115,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+
