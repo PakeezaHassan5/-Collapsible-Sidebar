@@ -1,0 +1,81 @@
+document.addEventListener("DOMContentLoaded", function() {
+  const toggleBtn = document.getElementById("toggleBtn");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const toggleIcon = toggleBtn.querySelector("i");
+  const themeToggle = document.getElementById("themeToggle");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const searchInput = document.querySelector('.search-box input');
+  const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+
+  function openSidebar() {
+    sidebar.classList.add("open");
+    overlay.classList.add("active");
+    toggleIcon.classList.remove("fa-bars");
+    toggleIcon.classList.add("fa-times");
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("active");
+    toggleIcon.classList.remove("fa-times");
+    toggleIcon.classList.add("fa-bars");
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    if (sidebar.classList.contains("open")) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  });
+
+  overlay.addEventListener("click", closeSidebar);
+
+  themeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    const icon = themeToggle.querySelector('i');
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    } else {
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+    }
+  });
+
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      if (this.id !== 'logoutBtn') {
+        e.preventDefault();
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        closeSidebar();
+      }
+    });
+  });
+
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const navItems = document.querySelectorAll('.sidebar-nav a');
+    
+    navItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (text.includes(searchTerm)) {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+
+  function performLogout() {
+    alert('You have been logged out from Elevvo successfully!');
+    closeSidebar();
+  }
+
+  logoutBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    performLogout();
+  });
+});
