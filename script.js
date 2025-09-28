@@ -78,4 +78,41 @@ document.addEventListener("DOMContentLoaded", function() {
     e.preventDefault();
     performLogout();
   });
+
+  // Mobile swipe functionality
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+  
+  document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, false);
+  
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    
+    if (touchStartX < 30 && touchEndX - touchStartX > swipeThreshold) {
+      openSidebar();
+    }
+    if (sidebar.classList.contains('open') && touchStartX - touchEndX > swipeThreshold) {
+      closeSidebar();
+    }
+  }
+  // Close sidebar when clicking outside on mobile
+  document.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768 && sidebar.classList.contains('open') && 
+        !sidebar.contains(e.target) && e.target !== toggleBtn) {
+      closeSidebar();
+    }
+  });
+
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
 });
