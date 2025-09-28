@@ -58,7 +58,6 @@ body {
 .search-box {
   position: relative;
 }
-
 .search-box input {
   width: 100%;
   padding: 10px 15px 10px 40px;
@@ -333,3 +332,4 @@ body.dark-mode .welcome-container {
 .sidebar.swipe-open {
   transform: translateX(0);
 }
+
